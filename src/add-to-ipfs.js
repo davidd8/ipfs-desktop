@@ -89,7 +89,11 @@ async function addFileOrDirectory (ipfs, filepath) {
 
   if (stat.isDirectory()) {
     const files = globSource(filepath, '**/*', { recursive: true })
-    const res = await last(ipfs.addAll(files, { pin: false, wrapWithDirectory: true }))
+    const res = await last(ipfs.addAll(files, { 
+      pin: false, 
+      wrapWithDirectory: true,
+      cidVersion: 1
+    }))
     cid = res.cid
   } else {
     const readStream = fs.createReadStream(filepath)
